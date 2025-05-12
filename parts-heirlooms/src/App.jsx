@@ -18,6 +18,7 @@ import SellerCenterPage from './components/SellerCenterPage';
 import ProductsPage from './components/ProductsPage';
 import SellPage from './components/SellPage';
 import CartPage from './components/CartPage';
+import { products } from './data/products'; // 引入商品資料
 
 // App 主要組件
 function App() {
@@ -28,107 +29,6 @@ function App() {
     setCurrentPage(page);
   };
 
-  // 範例商品資料
-  const sampleProducts = [
-    {
-      id: 1,
-      imageUrl: "https://fakeimg.pl/600x400/cccccc/909090?text=RTX+3070",
-      title: "高效能顯示卡 RTX 3070",
-      description: "九成新，盒裝完整，遊戲與創作利器。尚在保固內。",
-      price: 9500,
-      productUrl: "#product1" // 之後會是動態路由
-    },
-    {
-      id: 2,
-      imageUrl: "https://fakeimg.pl/600x400/cccccc/909090?text=i7-10700K",
-      title: "Intel Core i7-10700K CPU",
-      description: "二手良品，功能正常，適合升級或組裝。",
-      price: 5200,
-      productUrl: "#product2"
-    },
-    {
-      id: 3,
-      imageUrl: "https://fakeimg.pl/600x400/cccccc/909090?text=16GB+RAM",
-      title: "DDR4 3200 16GB (8GB*2) 記憶體",
-      description: "知名品牌，穩定耐用，雙通道組合。",
-      price: 1800,
-      productUrl: "#product3"
-    },
-    {
-      id: 1,
-      imageUrl: "https://fakeimg.pl/600x400/cccccc/909090?text=RTX+3070",
-      title: "高效能顯示卡 RTX 3070",
-      description: "九成新，盒裝完整，遊戲與創作利器。尚在保固內。",
-      price: 9500,
-      productUrl: "#product1" // 之後會是動態路由
-    },
-    {
-      id: 2,
-      imageUrl: "https://fakeimg.pl/600x400/cccccc/909090?text=i7-10700K",
-      title: "Intel Core i7-10700K CPU",
-      description: "二手良品，功能正常，適合升級或組裝。",
-      price: 5200,
-      productUrl: "#product2"
-    },
-    {
-      id: 3,
-      imageUrl: "https://fakeimg.pl/600x400/cccccc/909090?text=16GB+RAM",
-      title: "DDR4 3200 16GB (8GB*2) 記憶體",
-      description: "知名品牌，穩定耐用，雙通道組合。",
-      price: 1800,
-      productUrl: "#product3"
-    },
-    {
-      id: 1,
-      imageUrl: "https://fakeimg.pl/600x400/cccccc/909090?text=RTX+3070",
-      title: "高效能顯示卡 RTX 3070",
-      description: "九成新，盒裝完整，遊戲與創作利器。尚在保固內。",
-      price: 9500,
-      productUrl: "#product1" // 之後會是動態路由
-    },
-    {
-      id: 2,
-      imageUrl: "https://fakeimg.pl/600x400/cccccc/909090?text=i7-10700K",
-      title: "Intel Core i7-10700K CPU",
-      description: "二手良品，功能正常，適合升級或組裝。",
-      price: 5200,
-      productUrl: "#product2"
-    },
-    {
-      id: 3,
-      imageUrl: "https://fakeimg.pl/600x400/cccccc/909090?text=16GB+RAM",
-      title: "DDR4 3200 16GB (8GB*2) 記憶體",
-      description: "知名品牌，穩定耐用，雙通道組合。",
-      price: 1800,
-      productUrl: "#product3"
-    },
-    {
-      id: 1,
-      imageUrl: "https://fakeimg.pl/600x400/cccccc/909090?text=RTX+3070",
-      title: "高效能顯示卡 RTX 3070",
-      description: "九成新，盒裝完整，遊戲與創作利器。尚在保固內。",
-      price: 9500,
-      productUrl: "#product1" // 之後會是動態路由
-    },
-    {
-      id: 2,
-      imageUrl: "https://fakeimg.pl/600x400/cccccc/909090?text=i7-10700K",
-      title: "Intel Core i7-10700K CPU",
-      description: "二手良品，功能正常，適合升級或組裝。",
-      price: 5200,
-      productUrl: "#product2"
-    },
-    {
-      id: 3,
-      imageUrl: "https://fakeimg.pl/600x400/cccccc/909090?text=16GB+RAM",
-      title: "DDR4 3200 16GB (8GB*2) 記憶體",
-      description: "知名品牌，穩定耐用，雙通道組合。",
-      price: 1800,
-      productUrl: "#product3"
-    }
-
-  ];
-
   return (
     <>
       <Navbar navigateTo={navigateTo} /> {/* 將 navigateTo 傳遞給 Navbar */}
@@ -137,10 +37,10 @@ function App() {
         {currentPage === 'home' && (
           <>
             <HeroSection navigateTo={navigateTo} /> {/* 將 navigateTo 傳遞給 HeroSection */}
-            <ProductList products={sampleProducts} listTitle="最多人觀看" />
+            <ProductList products={products} listTitle="最多人觀看" />
           </>
         )}
-        {currentPage === 'products' && <ProductsPage products={sampleProducts} />} {/* Pass products to ProductsPage */}
+        {currentPage === 'products' && <ProductsPage products={products} />} {/* Pass products to ProductsPage */}
         {currentPage === 'register' && <RegisterPage navigateTo={navigateTo} />} {/* 將 navigateTo 傳遞給 RegisterPage */}
         {currentPage === 'login' && <LoginPage navigateTo={navigateTo} />} {/* 將 navigateTo 傳遞給 LoginPage */}
         {currentPage === 'profile' && <ProfilePage />}
