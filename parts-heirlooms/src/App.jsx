@@ -1,5 +1,5 @@
-// 引入 React
-import React from 'react';
+// 引入 React 和 useState
+import React, { useState } from 'react';
 // 引入 Navbar 組件
 import Navbar from './components/Navbar';
 // 引入 Footer 組件
@@ -10,9 +10,24 @@ import HeroSection from './components/HeroSection';
 import ProductList from './components/ProductList';
 // 引入 ScrollToTopButton 組件
 import ScrollToTopButton from './components/ScrollToTopButton';
+// 引入頁面元件
+import RegisterPage from './components/RegisterPage';
+import LoginPage from './components/LoginPage';
+import ProfilePage from './components/ProfilePage';
+import SellerCenterPage from './components/SellerCenterPage';
+import ProductsPage from './components/ProductsPage';
+import SellPage from './components/SellPage';
+import CartPage from './components/CartPage';
 
 // App 主要組件
 function App() {
+  const [currentPage, setCurrentPage] = useState('home'); // 預設顯示首頁
+
+  // 導航函式
+  const navigateTo = (page) => {
+    setCurrentPage(page);
+  };
+
   // 範例商品資料
   const sampleProducts = [
     {
@@ -116,12 +131,23 @@ function App() {
 
   return (
     <>
-      <Navbar />
-      {/* 主要內容區域，之後會由 React Router 控制 */}
-      {/* 移除 main 上的 container class，因為子元件內部會處理 */}
-      <main className="mt-0 mb-4"> {/* 調整上下邊距，HeroSection 通常直接貼齊 Navbar */}
-        <HeroSection />
-        <ProductList products={sampleProducts} listTitle="熱門商品" />
+      <Navbar navigateTo={navigateTo} /> {/* 將 navigateTo 傳遞給 Navbar */}
+      {/* 主要內容區域 */}
+      <main className="mt-0 mb-4" style={{ paddingTop: '56px' }}> {/* Navbar 是 fixed-top，所以 main 需要 padding-top */}
+        {currentPage === 'home' && (
+          <>
+            <HeroSection navigateTo={navigateTo} /> {/* 將 navigateTo 傳遞給 HeroSection */}
+            <ProductList products={sampleProducts} listTitle="最多人觀看" />
+          </>
+        )}
+        {currentPage === 'products' && <ProductsPage products={sampleProducts} />} {/* Pass products to ProductsPage */}
+        {currentPage === 'register' && <RegisterPage navigateTo={navigateTo} />} {/* 將 navigateTo 傳遞給 RegisterPage */}
+        {currentPage === 'login' && <LoginPage navigateTo={navigateTo} />} {/* 將 navigateTo 傳遞給 LoginPage */}
+        {currentPage === 'profile' && <ProfilePage />}
+        {currentPage === 'seller-center' && <SellerCenterPage />}
+        {currentPage === 'sell' && <SellPage />}
+        {currentPage === 'cart' && <CartPage />}
+        {/* 其他頁面可以陸續加入 */}
       </main>
       <Footer />
       <ScrollToTopButton /> {/* 加入回到頂部按鈕 */}
