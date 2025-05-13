@@ -1,22 +1,17 @@
 // 引入 React
 import React from 'react';
-// 引入 React Router 的 Link 元件 (稍後會用到)
-// import { Link } from 'react-router-dom';
+// 引入 React Router 的 Link 元件
+import { Link } from 'react-router-dom';
 
 // 導覽列組件
-function Navbar({ navigateTo }) { // 接收 navigateTo prop
+function Navbar() { // 不再需要 navigateTo prop
   const navbarCollapseId = "navbarPartsHeirloomsCollapse"; // 定義唯一的 ID
-
-  const handleNavClick = (e, page) => {
-    e.preventDefault(); // 防止頁面重新載入
-    navigateTo(page);
-  };
 
   return (
     // 參考 Carousel 範例，保持 fixed-top bg-dark navbar-dark
     <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark ">
       <div className="container-fluid px-5">
-        <a className="navbar-brand" href="#" onClick={(e) => handleNavClick(e, 'home')}>零件傳承坊</a> {/* 首頁 */}
+        <Link className="navbar-brand" to="/">零件傳承坊</Link> {/* 首頁 */}
         <button
           className="navbar-toggler"
           type="button"
@@ -34,13 +29,13 @@ function Navbar({ navigateTo }) { // 接收 navigateTo prop
             {/* 可以根據需要新增 "商品" 等主要導覽連結 */}
             <li className="nav-item">
               {/* 假設有一個商品列表頁 */}
-              <a className="nav-link" href="#" onClick={(e) => handleNavClick(e, 'products')}>商品</a>
+              <Link className="nav-link" to="/products">商品</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#" onClick={(e) => handleNavClick(e, 'profile')}>個人中心</a>
+              <Link className="nav-link" to="/profile">個人中心</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#" onClick={(e) => handleNavClick(e, 'seller-center')}>賣家中心</a>
+              <Link className="nav-link" to="/seller-center">賣家中心</Link>
             </li>
           </ul>
           {/* 搜尋表單靠右 */}
@@ -54,15 +49,15 @@ function Navbar({ navigateTo }) { // 接收 navigateTo prop
           <ul className="navbar-nav ms-2 d-flex align-items-center"> {/* ms-2 增加左邊間距 */}
             <li className="nav-item">
               {/* 購物車連結可以導向購物車頁面，或打開一個 modal */}
-              <a className="nav-link" href="#" aria-label="購物車" onClick={(e) => handleNavClick(e, 'cart')}>
+              <Link className="nav-link" to="/cart" aria-label="購物車">
                 <i className="bi bi-cart" style={{ fontSize: '1.2rem' }}></i> {/* 調整圖示大小 */}
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#" onClick={(e) => handleNavClick(e, 'register')}>註冊</a>
+              <Link className="nav-link" to="/register">註冊</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#" onClick={(e) => handleNavClick(e, 'login')}>登入</a>
+              <Link className="nav-link" to="/login">登入</Link>
             </li>
           </ul>
         </div>
