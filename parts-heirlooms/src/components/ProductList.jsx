@@ -1,14 +1,21 @@
 // 引入 React
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // 引入 useNavigate
 // 引入 ProductCard 組件
 import ProductCard from './ProductCard';
 
 // 商品列表組件
 // Props:
 // - products: 商品物件的陣列
-//   每個商品物件應包含 ProductCard 所需的 props (imageUrl, title, description, price, productUrl)
+//   每個商品物件應包含 ProductCard 所需的 props (imageUrl, title, description, price, id)
 // - title: 列表的標題 (例如 "熱門商品")
 function ProductList({ products = [], listTitle = "商品列表" }) {
+  const navigate = useNavigate(); // 獲取 navigate 函式
+
+  const handleCardClick = (productId) => {
+    navigate(`/product/${productId}`); // 導航到商品詳細頁面
+  };
+
   if (!products || products.length === 0) {
     return (
       <div className="album py-5 bg-body-tertiary">
@@ -33,7 +40,7 @@ function ProductList({ products = [], listTitle = "商品列表" }) {
               title={product.title}
               description={product.description}
               price={product.price}
-              productUrl={product.productUrl}
+              onCardClick={() => handleCardClick(product.id)} // 傳遞點擊事件處理函式
             />
           ))}
         </div>

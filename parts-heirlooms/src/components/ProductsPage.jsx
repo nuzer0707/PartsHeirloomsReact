@@ -5,8 +5,8 @@ import { categories } from '../data/categories'; // 引入分類資料
 function ProductsPage({ products }) { // 接收 products prop
   const [selectedCategory, setSelectedCategory] = useState(''); // 預設不選擇任何分類
 
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
+  const handleCategoryChange = (categoryId) => {
+    setSelectedCategory(categoryId);
   };
 
   // 篩選邏輯移到渲染部分，以便根據 selectedCategory 決定渲染方式
@@ -16,22 +16,28 @@ function ProductsPage({ products }) { // 接收 products prop
 
   return (
     <div className="container mt-5 pt-5">
-      <h2>所有商品</h2>
+      <h2>商品</h2>
       <div className="mb-3">
-        <label htmlFor="categoryFilter" className="form-label">篩選分類：</label>
-        <select
-          id="categoryFilter"
-          className="form-select"
-          value={selectedCategory}
-          onChange={handleCategoryChange}
-        >
-          <option value="">所有分類</option>
+        <div className="form-label">篩選分類：</div>
+        <div className="btn-group" role="group" aria-label="Category filter">
+          <button
+            type="button"
+            className={`btn ${selectedCategory === '' ? 'btn-secondary' : 'btn-outline-secondary'}`}
+            onClick={() => handleCategoryChange('')}
+          >
+            所有分類
+          </button>
           {categories.map(category => (
-            <option key={category.id} value={category.id}>
+            <button
+              key={category.id}
+              type="button"
+              className={`btn ${selectedCategory === category.id.toString() ? 'btn-secondary' : 'btn-outline-secondary'}`}
+              onClick={() => handleCategoryChange(category.id.toString())}
+            >
               {category.name}
-            </option>
+            </button>
           ))}
-        </select>
+        </div>
       </div>
 
       {selectedCategory ? (
