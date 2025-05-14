@@ -39,7 +39,7 @@ function Navbar() { // 不再需要 navigateTo prop
             </li>
           </ul>
           {/* 搜尋表單靠右 */}
-          <form className="d-flex" role="search"> {/* 移除 align-items-center */}
+          <form className="d-flex" role="search">
             <input className="form-control me-2  " type="search" placeholder="搜尋商品" aria-label="Search" /> {/* 確認是標準大小 form-control */}
             <button className="btn btn-outline-secondary " type="submit" aria-label="搜尋"> {/* 改回圖示並加上 aria-label */}
               <i className="bi bi-search"></i>
@@ -50,7 +50,7 @@ function Navbar() { // 不再需要 navigateTo prop
             <li className="nav-item">
               {/* 購物車連結可以導向購物車頁面，或打開一個 modal */}
               <Link className="nav-link" to="/cart" aria-label="購物車">
-                <i className="bi bi-cart" style={{ fontSize: '1.2rem' }}></i> {/* 調整圖示大小 */}
+                <i className="bi bi-cart" style={{ fontSize: '1.2rem' }}></i>
               </Link>
             </li>
             <li className="nav-item">

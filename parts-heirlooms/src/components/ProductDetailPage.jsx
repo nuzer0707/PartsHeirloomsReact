@@ -31,7 +31,7 @@ const ProductDetailPage = () => {
           {/* 其他商品詳細資訊，例如評價等 */}
           <button className="btn btn-primary btn-lg">
             {/* 加入購物車 ICON，這裡使用一個簡單的文字代替，如果專案有圖示庫可以替換 */}
-            🛒 加入購物車
+            <i className="bi bi-cart-plus"></i> 加入購物車
           </button>
         </div>
       </div>
