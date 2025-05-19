@@ -20,7 +20,7 @@ import ProductsPage from './components/ProductsPage';
 import SellPage from './components/SellPage';
 import CartPage from './components/CartPage';
 import ProductDetailPage from './components/ProductDetailPage'; // 引入商品詳細頁面組件
-import { products } from './data/products'; // 引入商品資料
+import products from './data/products'; // 引入商品資料
 
 // App 主要組件
 function App() {
