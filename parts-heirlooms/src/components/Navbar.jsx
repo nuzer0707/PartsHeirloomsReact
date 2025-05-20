@@ -1,8 +1,10 @@
 // 引入 React
 import React from 'react';
+import { useAuth } from '../contexts/AuthContext'; // 引入 useAuth
 
 // 導覽列組件
 function Navbar({ navigateTo }) { // 接收 navigateTo prop
+  const { user, logout } = useAuth(); // 使用 useAuth 獲取 user 狀態和 logout 函式
   const navbarCollapseId = "navbarPartsHeirloomsCollapse"; // 定義唯一的 ID
 
   const handleNavLinkClick = (e, page) => {
@@ -58,14 +60,33 @@ function Navbar({ navigateTo }) { // 接收 navigateTo prop
                 <i className="bi bi-cart" style={{ fontSize: '1.2rem' }}></i>
               </a>
             </li>
-            {/* 註冊連結 */}
-            <li className="nav-item">
-              <a className="nav-link" href="/register" onClick={(e) => handleNavLinkClick(e, 'register')}>註冊</a>
-            </li>
-            {/* 登入連結 */}
-            <li className="nav-item">
-              <a className="nav-link" href="/login" onClick={(e) => handleNavLinkClick(e, 'login')}>登入</a>
-            </li>
+            {/* 根據登入狀態顯示 */}
+            {user ? (
+              <li className="nav-item ms-2"> {/* ms-2 增加左邊間距 */}
+                <div
+                  className="bg-success text-emphasis rounded-circle d-inline-flex align-items-center justify-content-center"
+                  style={{ width: '30px', height: '30px', cursor: 'pointer' }} // 設定圓形大小和游標樣式
+                  onClick={() => {
+                    logout(); // 呼叫 logout 函式
+                    navigateTo('home'); // 導向首頁
+                  }}
+                  title={`登出 ${user.username}`} // 懸停提示
+                >
+                  <span className="fw-bold">{user.username.charAt(0).toUpperCase()}</span> {/* 顯示使用者名稱首字大寫 */}
+                </div>
+              </li>
+            ) : (
+              <>
+                {/* 註冊連結 */}
+                <li className="nav-item">
+                  <a className="nav-link" href="/register" onClick={(e) => handleNavLinkClick(e, 'register')}>註冊</a>
+                </li>
+                {/* 登入連結 */}
+                <li className="nav-item">
+                  <a className="nav-link" href="/login" onClick={(e) => handleNavLinkClick(e, 'login')}>登入</a>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

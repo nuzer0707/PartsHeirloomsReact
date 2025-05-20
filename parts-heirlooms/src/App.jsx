@@ -20,6 +20,7 @@ import SellPage from './components/SellPage';
 import CartPage from './components/CartPage';
 import ProductDetailPage from './components/ProductDetailPage'; // 引入商品詳細頁面組件
 import products from './data/products'; // 引入商品資料
+import { AuthProvider } from './contexts/AuthContext'; // 引入 AuthProvider
 
 // App 主要組件
 function App() {
@@ -51,9 +52,9 @@ function App() {
         // 將選中的商品 ID 傳遞給 ProductDetailPage
         return <ProductDetailPage productId={selectedProductId} />;
       case 'register':
-        return <RegisterPage />;
+        return <RegisterPage navigateTo={navigateTo} />;
       case 'login':
-        return <LoginPage />;
+        return <LoginPage navigateTo={navigateTo} />;
       case 'profile':
         return <ProfilePage />;
       case 'sellerCenter':
@@ -73,7 +74,7 @@ function App() {
   };
 
   return (
-    <>
+    <AuthProvider> {/* 使用 AuthProvider 包裹 */}
       <Navbar navigateTo={navigateTo} /> {/* 將 navigateTo 傳遞給 Navbar */}
       {/* 主要內容區域 */}
       <main className="mt-0 mb-4" style={{ paddingTop: '56px' }}> {/* Navbar 是 fixed-top，所以 main 需要 padding-top */}
@@ -81,7 +82,7 @@ function App() {
       </main>
       <Footer />
       <ScrollToTopButton /> {/* 加入回到頂部按鈕 */}
-    </>
+    </AuthProvider>
   );
 }
 
