@@ -1,8 +1,8 @@
 const productReports = [
   {
-    report_id: 'pr1',
-    product_id: 'p2',
-    reporter_user_id: 'u3',
+    report_id: 1,
+    product_id: 2,
+    reporter_user_id: 3,
     report_reason_category: '違禁品',
     report_details: '疑似販賣違禁品',
     report_status: '待處理',

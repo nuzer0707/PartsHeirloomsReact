@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ProductList from './ProductList'; // 可以重用 ProductList
 import categories from '../data/categories'; // 引入分類資料
 
-function ProductsPage({ products }) { // 接收 products prop
+function ProductsPage({ products, navigateTo }) { // 接收 products 和 navigateTo prop
   const [selectedCategory, setSelectedCategory] = useState(''); // 預設不選擇任何分類
 
   const handleCategoryChange = (categoryId) => {
@@ -40,6 +40,7 @@ function ProductsPage({ products }) { // 接收 products prop
         <ProductList
           products={products.filter(product => product.category_id === selectedCategory)}
           listTitle={categories.find(c => c.category_id === selectedCategory)?.name || "商品列表"}
+          navigateTo={(page, productId) => navigateTo(page, productId)} // 將 navigateTo 傳遞給 ProductList
         />
       ) : (
         // 如果選擇了 "所有分類"，則遍歷所有分類並分別顯示
@@ -51,6 +52,7 @@ function ProductsPage({ products }) { // 接收 products prop
                 key={category.category_id}
                 products={productsInCategory}
                 listTitle={category.name}
+                navigateTo={(page, productId) => navigateTo(page, productId)} // 將 navigateTo 傳遞給 ProductList
               />
             );
           }

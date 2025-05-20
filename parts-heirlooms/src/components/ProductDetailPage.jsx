@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import products from '../data/products'; // 引入商品核心資料
 import productContent from '../data/product_content'; // 引入商品內容資料
 import productImages from '../data/product_images'; // 引入商品圖片資料
 
-const ProductDetailPage = () => {
-  const { productId } = useParams();
+// 接收 productId prop
+const ProductDetailPage = ({ productId }) => {
   const [product, setProduct] = useState(null);
   const [content, setContent] = useState(null);
   const [images, setImages] = useState([]);
@@ -23,10 +22,11 @@ const ProductDetailPage = () => {
     const foundImages = productImages.filter(item => item.product_id === productId);
     setImages(foundImages);
 
-  }, [productId]);
+  }, [productId]); // 依賴於 productId prop
 
   if (!product || !content) {
-    return <div>商品載入中或找不到商品...</div>;
+    // 如果沒有 productId 或者找不到商品，顯示載入中或找不到商品
+    return <div>{productId ? '商品載入中或找不到商品...' : '請選擇一個商品查看詳細資訊。'}</div>;
   }
 
   // 這裡將是商品詳細頁面的 UI
@@ -43,13 +43,16 @@ const ProductDetailPage = () => {
         <div className="col-md-6">
           <h1>{content.title}</h1>
           <h2 className="text-success">${product.price}</h2>
-          <p>{content.full_description}</p>
+          <p>{content.short_description}</p>
           <p>庫存數量: {product.quantity}</p> {/* 顯示產品數量 */}
           {/* 其他商品詳細資訊，例如評價等 */}
           <button className="btn btn-primary btn-lg">
             {/* 加入購物車 ICON，這裡使用一個簡單的文字代替，如果專案有圖示庫可以替換 */}
             <i className="bi bi-cart-plus"></i> 加入購物車
           </button>
+        </div>
+        <div className="container mt-5 pt-5">
+          <h3>{content.full_description}</h3>
         </div>
       </div>
       {/* 您可以在這裡添加更多區塊，例如商品規格、評價等 */}

@@ -1,20 +1,22 @@
 // 引入 React
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // 引入 useNavigate
 // 引入 ProductCard 組件
 import ProductCard from './ProductCard';
 // 引入商品內容資料
 import productContent from '../data/product_content';
+// 引入商品圖片資料
+import productImages from '../data/product_images';
 
 // 商品列表組件
 // Props:
 // - products: 商品核心屬性物件的陣列
 // - title: 列表的標題 (例如 "熱門商品")
-function ProductList({ products = [], listTitle = "商品列表" }) {
-  const navigate = useNavigate(); // 獲取 navigate 函式
+// - navigateTo: 用於頁面導航的函式
+function ProductList({ products = [], listTitle = "商品列表", navigateTo }) { // 接收 navigateTo prop
 
+  // Trivial change to force update
   const handleCardClick = (productId) => {
-    navigate(`/product/${productId}`); // 導航到商品詳細頁面
+    navigateTo('productDetail', productId); // 導航到商品詳細頁面，並傳入商品 ID
   };
 
   if (!products || products.length === 0) {
@@ -35,11 +37,15 @@ function ProductList({ products = [], listTitle = "商品列表" }) {
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3"> {/* xs,sm:1張; md:2張; lg+:3張 */}
           {products.map((product) => {
             const content = productContent.find(item => item.product_id === product.product_id);
+            // 找到對應商品的圖片，取第一張
+            const images = productImages.filter(image => image.product_id === product.product_id);
+            const imageUrl = images.length > 0 ? images[0].image_url : "https://fakeimg.pl/600x400/cccccc/909090?text=Image+Not+Available";
+
             // 假設每個 product 物件都有一個唯一的 product_id
             return (
               <ProductCard
                 key={product.product_id}
-                // imageUrl={product.imageUrl} // 圖片資料現在在 product_images 中，這裡暫時不處理
+                imageUrl={imageUrl} // 從 product_images 傳遞圖片 URL
                 title={content?.title || '無標題'}
                 description={content?.short_description || '無描述'}
                 price={product.price}

@@ -1,6 +1,6 @@
 const users = [
   {
-    user_id: 'u1',
+    user_id: 1,
     username: 'seller_john',
     email: 'john.seller@example.com',
     password_hash: 'hashed_password_1',
@@ -9,7 +9,7 @@ const users = [
     created_at: '2023-10-26T10:20:00Z',
   },
   {
-    user_id: 'u2',
+    user_id: 2,
     username: 'buyer_jane',
     email: 'jane.buyer@example.com',
     password_hash: 'hashed_password_2',
@@ -18,7 +18,7 @@ const users = [
     created_at: '2023-10-26T10:30:00Z',
   },
   {
-    user_id: 'u3',
+    user_id: 3,
     username: 'admin_peter',
     email: 'peter.admin@example.com',
     password_hash: 'hashed_password_3',

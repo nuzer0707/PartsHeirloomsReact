@@ -1,6 +1,5 @@
 // 引入 React 和 useState
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useState } from 'react';
 // 引入 Navbar 組件
 import Navbar from './components/Navbar';
 // 引入 Footer 組件
@@ -24,32 +23,65 @@ import products from './data/products'; // 引入商品資料
 
 // App 主要組件
 function App() {
+  // 使用 state 來追蹤當前頁面和選中的商品 ID
+  const [currentPage, setCurrentPage] = useState('home');
+  const [selectedProductId, setSelectedProductId] = useState(null);
+
+  // 導航到指定頁面的函式，可選地傳入商品 ID
+  const navigateTo = (page, productId = null) => {
+    setCurrentPage(page);
+    setSelectedProductId(productId);
+  };
+
+  // 根據當前頁面渲染不同的組件
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'home':
+        return (
+          <>
+            <HeroSection navigateTo={navigateTo} />
+            {/* 將 navigateTo 傳遞給 ProductList */}
+            <ProductList products={products} listTitle="最多人觀看" navigateTo={navigateTo} />
+          </>
+        );
+      case 'products':
+        // 將 navigateTo 傳遞給 ProductsPage
+        return <ProductsPage products={products} navigateTo={navigateTo} />;
+      case 'productDetail':
+        // 將選中的商品 ID 傳遞給 ProductDetailPage
+        return <ProductDetailPage productId={selectedProductId} />;
+      case 'register':
+        return <RegisterPage />;
+      case 'login':
+        return <LoginPage />;
+      case 'profile':
+        return <ProfilePage />;
+      case 'sellerCenter':
+        return <SellerCenterPage />;
+      case 'sell':
+        return <SellPage />;
+      case 'cart':
+        return <CartPage />;
+      default:
+        return (
+          <div>
+            <h2>Page Not Found</h2>
+            <p>The requested page does not exist.</p>
+          </div>
+        );
+    }
+  };
+
   return (
-    <BrowserRouter>
-      <Navbar /> {/* Navbar 不再需要 navigateTo */}
+    <>
+      <Navbar navigateTo={navigateTo} /> {/* 將 navigateTo 傳遞給 Navbar */}
       {/* 主要內容區域 */}
       <main className="mt-0 mb-4" style={{ paddingTop: '56px' }}> {/* Navbar 是 fixed-top，所以 main 需要 padding-top */}
-        <Routes>
-          <Route path="/" element={
-            <>
-              <HeroSection /> {/* HeroSection 不再需要 navigateTo */}
-              <ProductList products={products} listTitle="最多人觀看" />
-            </>
-          } />
-          <Route path="/products" element={<ProductsPage products={products} />} /> {/* Pass products to ProductsPage */}
-          <Route path="/product/:productId" element={<ProductDetailPage />} /> {/* 商品詳細頁面路由 */}
-          <Route path="/register" element={<RegisterPage />} /> {/* RegisterPage 不再需要 navigateTo */}
-          <Route path="/login" element={<LoginPage />} /> {/* LoginPage 不再需要 navigateTo */}
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/seller-center" element={<SellerCenterPage />} />
-          <Route path="/sell" element={<SellPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          {/* 其他頁面可以陸續加入 */}
-        </Routes>
+        {renderPage()} {/* 渲染當前頁面 */}
       </main>
       <Footer />
       <ScrollToTopButton /> {/* 加入回到頂部按鈕 */}
-    </BrowserRouter>
+    </>
   );
 }
 
