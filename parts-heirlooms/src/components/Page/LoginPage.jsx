@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // 引入 Link 和 useNavigate
 import users from '../../data/users'; // 引入 users 資料
 import { useAuth } from '../../contexts/AuthContext'; // 引入 useAuth
 
-function LoginPage({ navigateTo }) { // 接收 navigateTo prop
+function LoginPage() { // 不再接收 navigateTo prop
+  const navigate = useNavigate(); // 使用 useNavigate 鉤子
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -68,7 +70,7 @@ function LoginPage({ navigateTo }) { // 接收 navigateTo prop
           </div>
           <button className="btn btn-primary w-100 py-2" type="submit">登入</button>
           <p className="mt-3">
-            還沒有帳號？ <a href="#" onClick={(e) => { e.preventDefault(); navigateTo('register'); }}>前往註冊</a>
+            還沒有帳號？ <Link to="/register">前往註冊</Link>
           </p>
           <p className="mt-5 mb-3 text-body-secondary">&copy; 2024–2025</p> {/* 年份可調整 */}
         </form>
@@ -80,13 +82,13 @@ function LoginPage({ navigateTo }) { // 接收 navigateTo prop
     event.preventDefault(); // 防止表單默認提交
 
     // 在 users 資料中尋找匹配的用戶
-    const user = users.find(u => u.email === email && u.password_hash === password); // 注意：這裡直接比較密碼，實際應用中應使用安全的密碼驗證方式
+    const user = users.find(u => u.email === username && u.password_hash === password); // 注意：這裡直接比較密碼，實際應用中應使用安全的密碼驗證方式
 
     if (user) {
       console.log('登入成功:', user);
       setLoginError('');
       login(user); // 呼叫 login 函式，設置使用者狀態
-      navigateTo('home'); // 導向首頁
+      navigate('/'); // 導向首頁 (使用 navigate 導向根路徑)
     } else {
       console.log('登入失敗');
       setLoginError('電子郵件或密碼不正確');

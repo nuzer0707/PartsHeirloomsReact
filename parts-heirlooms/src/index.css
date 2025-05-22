@@ -83,15 +83,20 @@ button:focus-visible {
 
 /* 商品卡片 Hover 效果 */
 .card {
-
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .card:hover {
   transform: scale(1.03);
-  /* 考慮到 Bootstrap 的 .shadow-sm，可能需要更強的陰影或調整 */
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-  /* text-decoration: underline; -- 移除此行 */
+}
+
+/* 購物車頁面卡片不應用 Hover 效果 */
+.cart-card:hover {
+  transform: scale(1.0);
+  /* 禁用縮放 */
+  box-shadow: none !important;
+  /* 禁用陰影 */
 }
 
 

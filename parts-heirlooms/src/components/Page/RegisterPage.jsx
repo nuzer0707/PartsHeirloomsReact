@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // 引入 Link 和 useNavigate
 
-function RegisterPage({ navigateTo }) { // 接收 navigateTo prop
+function RegisterPage() { // 不再接收 navigateTo prop
+  const navigate = useNavigate(); // 使用 useNavigate 鉤子
   // 內聯樣式，模擬 sign-in.css 的基本效果
   const formSigninStyle = {
     maxWidth: '330px',
@@ -27,6 +29,10 @@ function RegisterPage({ navigateTo }) { // 接收 navigateTo prop
             <label htmlFor="floatingInput">電子郵件地址</label>
           </div>
           <div className="form-floating mb-3">
+            <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+            <label htmlFor="floatingInput">使用者帳號</label>
+          </div>
+          <div className="form-floating mb-3">
             <input type="password" className="form-control" id="floatingPassword" placeholder="Password" />
             <label htmlFor="floatingPassword">密碼</label>
           </div>
@@ -38,7 +44,7 @@ function RegisterPage({ navigateTo }) { // 接收 navigateTo prop
 
           <button className="btn btn-primary w-100 py-2" type="submit">註冊</button>
           <p className="mt-3">
-            已經有帳號了？ <a href="#" onClick={(e) => { e.preventDefault(); navigateTo('login'); }}>前往登入</a>
+            已經有帳號了？ <Link to="/login">前往登入</Link>
           </p>
           <p className="mt-5 mb-3 text-body-secondary">&copy; 2024–2025</p> {/* 年份可調整 */}
         </form>
