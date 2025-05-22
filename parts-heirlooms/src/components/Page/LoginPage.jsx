@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import users from '../data/users'; // 引入 users 資料
-import { useAuth } from '../contexts/AuthContext'; // 引入 useAuth
+import users from '../../data/users'; // 引入 users 資料
+import { useAuth } from '../../contexts/AuthContext'; // 引入 useAuth
 
 function LoginPage({ navigateTo }) { // 接收 navigateTo prop
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
 
@@ -37,15 +37,15 @@ function LoginPage({ navigateTo }) { // 接收 navigateTo prop
 
           <div className="form-floating mb-3">
             <input
-              type="email"
+              type="username"
               className="form-control"
               id="floatingInput"
               placeholder="name@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
-            <label htmlFor="floatingInput">電子郵件地址</label>
+            <label htmlFor="floatingInput">帳號</label>
           </div>
           <div className="form-floating mb-3">
             <input

@@ -1,3 +1,10 @@
+* {
+  font-family: "Noto Sans TC", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
 :root {
   scroll-behavior: smooth;
   /* 新增平滑滾動行為 */
@@ -87,10 +94,32 @@ button:focus-visible {
   /* text-decoration: underline; -- 移除此行 */
 }
 
-/* 為 card-body 添加最小高度以確保卡片高度一致 */
-.card-body {
-  min-height: 150px;
-  /* 增加最小高度，您可以根據需要調整這個值 */
+
+
+/* 限制商品標題的行數並添加省略號 */
+.card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  /* 限制為 1 行 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  /* 允許在單行內正常換行，但超出時會被省略 */
+}
+
+/* 限制商品描述的行數並添加省略號 */
+.card-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  /* 限制為 3 行 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  /* 允許在多行內正常換行，但超出時會被省略 */
 }
 
 /* 移除包裹 ProductCard 的 a 標籤的預設樣式 */

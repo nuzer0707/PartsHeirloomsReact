@@ -12,14 +12,15 @@ import ProductList from './components/ProductList';
 // 引入 ScrollToTopButton 組件
 import ScrollToTopButton from './components/ScrollToTopButton';
 // 引入頁面元件
-import RegisterPage from './components/RegisterPage';
-import LoginPage from './components/LoginPage';
-import ProfilePage from './components/ProfilePage';
-import SellerCenterPage from './components/SellerCenterPage';
-import ProductsPage from './components/ProductsPage';
-import SellPage from './components/SellPage';
-import CartPage from './components/CartPage';
-import ProductDetailPage from './components/ProductDetailPage'; // 引入商品詳細頁面組件
+import RegisterPage from './components/Page/RegisterPage';
+import LoginPage from './components/Page/LoginPage';
+import ProfilePage from './components/Page/ProfilePage';
+import SellerCenterPage from './components/Page/SellerCenterPage';
+import ProductsPage from './components/Page/ProductsPage';
+import SellPage from './components/Page/SellPage';
+import CartPage from './components/Page/CartPage';
+import ProductDetailPage from './components/Page/ProductDetailPage'; // 引入商品詳細頁面組件
+
 import products from './data/products'; // 引入商品資料
 import { AuthProvider } from './contexts/AuthContext'; // 引入 AuthProvider
 

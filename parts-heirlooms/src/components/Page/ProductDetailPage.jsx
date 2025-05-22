@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'; // 引入 useParams
-import products from '../data/products'; // 引入商品核心資料
-import productContent from '../data/product_content'; // 引入商品內容資料
-import productImages from '../data/product_images'; // 引入商品圖片資料
+import products from '../../data/products'; // 引入商品核心資料
+import productContent from '../../data/product_content'; // 引入商品內容資料
+import productImages from '../../data/product_images'; // 引入商品圖片資料
 
 const ProductDetailPage = () => { // 不再接收 productId prop
   const { productId } = useParams(); // 使用 useParams 獲取商品 ID
@@ -46,7 +46,7 @@ const ProductDetailPage = () => { // 不再接收 productId prop
 
   // 這裡將是商品詳細頁面的 UI
   return (
-    <div className="container mt-5 pt-5"> {/* Added pt-5 for spacing below navbar */}
+    <div className="container mt-5 p-5 bg-body-tertiary"> {/* Added pt-5 for spacing below navbar */}
       <div className="row">
         <div className="col-md-6">
           {/* 主圖片顯示 */}

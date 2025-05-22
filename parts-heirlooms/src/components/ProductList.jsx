@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // 引入 Link
 // 引入 ProductCard 組件
-import ProductCard from './ProductCard';
+import ProductCard from './Page/ProductCard';
 // 引入商品內容資料
 import productContent from '../data/product_content';
 // 引入商品圖片資料
