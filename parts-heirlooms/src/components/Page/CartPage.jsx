@@ -143,7 +143,7 @@ function CartPage() {
             </div>
           </div>
           <div className="col-md-4">
-            <div className="card mb-4">
+            <div className="card mb-4 cart-card">
               <div className="card-header py-3">
                 <h5 className="mb-0">摘要</h5>
               </div>
