@@ -87,6 +87,12 @@ button:focus-visible {
   /* text-decoration: underline; -- 移除此行 */
 }
 
+/* 為 card-body 添加最小高度以確保卡片高度一致 */
+.card-body {
+  min-height: 150px;
+  /* 增加最小高度，您可以根據需要調整這個值 */
+}
+
 /* 移除包裹 ProductCard 的 a 標籤的預設樣式 */
 .col>a,
 .col>a:hover {

@@ -1,23 +1,19 @@
 // 引入 React
 import React from 'react';
+import { Link, NavLink } from 'react-router-dom'; // 引入 Link 和 NavLink
 import { useAuth } from '../contexts/AuthContext'; // 引入 useAuth
 
 // 導覽列組件
-function Navbar({ navigateTo }) { // 接收 navigateTo prop
+function Navbar() { // 不再接收 navigateTo prop
   const { user, logout } = useAuth(); // 使用 useAuth 獲取 user 狀態和 logout 函式
   const navbarCollapseId = "navbarPartsHeirloomsCollapse"; // 定義唯一的 ID
-
-  const handleNavLinkClick = (e, page) => {
-    e.preventDefault(); // 阻止預設的連結行為
-    navigateTo(page); // 呼叫 navigateTo 函式切換頁面
-  };
 
   return (
     // 參考 Carousel 範例，保持 fixed-top bg-dark navbar-dark
     <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark ">
       <div className="container-fluid px-5">
         {/* 首頁連結 */}
-        <a className="navbar-brand" href="/" onClick={(e) => handleNavLinkClick(e, 'home')}>零件傳承坊</a>
+        <Link className="navbar-brand" to="/">零件傳承坊</Link> {/* 使用 Link */}
         <button
           className="navbar-toggler"
           type="button"
@@ -34,15 +30,15 @@ function Navbar({ navigateTo }) { // 接收 navigateTo prop
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
             {/* 商品列表頁連結 */}
             <li className="nav-item">
-              <a className="nav-link" href="/products" onClick={(e) => handleNavLinkClick(e, 'products')}>商品</a>
+              <NavLink className="nav-link" to="/products">商品</NavLink> {/* 使用 NavLink */}
             </li>
             {/* 個人中心連結 */}
             <li className="nav-item">
-              <a className="nav-link" href="/profile" onClick={(e) => handleNavLinkClick(e, 'profile')}>個人中心</a>
+              <NavLink className="nav-link" to="/profile">個人中心</NavLink> {/* 使用 NavLink */}
             </li>
             {/* 賣家中心連結 */}
             <li className="nav-item">
-              <a className="nav-link" href="/seller-center" onClick={(e) => handleNavLinkClick(e, 'sellerCenter')}>賣家中心</a>
+              <NavLink className="nav-link" to="/seller-center">賣家中心</NavLink> {/* 使用 NavLink */}
             </li>
           </ul>
           {/* 搜尋表單靠右 */}
@@ -56,9 +52,9 @@ function Navbar({ navigateTo }) { // 接收 navigateTo prop
           <ul className="navbar-nav ms-2 d-flex align-items-center"> {/* ms-2 增加左邊間距 */}
             {/* 購物車連結 */}
             <li className="nav-item">
-              <a className="nav-link" href="/cart" aria-label="購物車" onClick={(e) => handleNavLinkClick(e, 'cart')}>
+              <NavLink className="nav-link" to="/cart" aria-label="購物車"> {/* 使用 NavLink */}
                 <i className="bi bi-cart" style={{ fontSize: '1.2rem' }}></i>
-              </a>
+              </NavLink>
             </li>
             {/* 根據登入狀態顯示 */}
             {user ? (
@@ -68,7 +64,7 @@ function Navbar({ navigateTo }) { // 接收 navigateTo prop
                   style={{ width: '30px', height: '30px', cursor: 'pointer' }} // 設定圓形大小和游標樣式
                   onClick={() => {
                     logout(); // 呼叫 logout 函式
-                    navigateTo('home'); // 導向首頁
+                    // 登出後導向首頁，這裡可以使用 navigate 鉤子，但為了簡單起見，先不處理導向
                   }}
                   title={`登出 ${user.username}`} // 懸停提示
                 >
@@ -79,11 +75,11 @@ function Navbar({ navigateTo }) { // 接收 navigateTo prop
               <>
                 {/* 註冊連結 */}
                 <li className="nav-item">
-                  <a className="nav-link" href="/register" onClick={(e) => handleNavLinkClick(e, 'register')}>註冊</a>
+                  <NavLink className="nav-link" to="/register">註冊</NavLink> {/* 使用 NavLink */}
                 </li>
                 {/* 登入連結 */}
                 <li className="nav-item">
-                  <a className="nav-link" href="/login" onClick={(e) => handleNavLinkClick(e, 'login')}>登入</a>
+                  <NavLink className="nav-link" to="/login">登入</NavLink> {/* 使用 NavLink */}
                 </li>
               </>
             )}

@@ -1,30 +1,37 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom'; // 引入 useParams
 import products from '../data/products'; // 引入商品核心資料
 import productContent from '../data/product_content'; // 引入商品內容資料
 import productImages from '../data/product_images'; // 引入商品圖片資料
 
-// 接收 productId prop
-const ProductDetailPage = ({ productId }) => {
+const ProductDetailPage = () => { // 不再接收 productId prop
+  const { productId } = useParams(); // 使用 useParams 獲取商品 ID
   const [product, setProduct] = useState(null);
   const [content, setContent] = useState(null);
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    // 根據 productId 尋找對應的商品核心資料
-    const foundProduct = products.find(p => p.product_id === productId);
-    setProduct(foundProduct);
+    // 確保 productId 存在
+    if (productId) {
+      // 將 productId 轉換為數字，以便與資料中的 product_id 比較
+      const numericProductId = parseInt(productId, 10);
 
-    // 尋找對應的商品內容資料
-    const foundContent = productContent.find(item => item.product_id === productId);
-    setContent(foundContent);
+      // 根據 productId 尋找對應的商品核心資料
+      const foundProduct = products.find(p => p.product_id === numericProductId);
+      setProduct(foundProduct);
 
-    // 尋找對應的商品圖片資料
-    const foundImages = productImages.filter(item => item.product_id === productId);
-    setImages(foundImages);
+      // 尋找對應的商品內容資料
+      const foundContent = productContent.find(item => item.product_id === numericProductId);
+      setContent(foundContent);
 
-  }, [productId]); // 依賴於 productId prop
+      // 尋找對應的商品圖片資料
+      const foundImages = productImages.filter(item => item.product_id === numericProductId);
+      setImages(foundImages);
+    }
 
-  if (!product || !content) {
+  }, [productId]); // 依賴於從 URL 獲取的 productId
+
+  if (!productId || !product || !content) {
     // 如果沒有 productId 或者找不到商品，顯示載入中或找不到商品
     return <div>{productId ? '商品載入中或找不到商品...' : '請選擇一個商品查看詳細資訊。'}</div>;
   }

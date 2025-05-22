@@ -1,5 +1,7 @@
 // 引入 React
+// 引入 React
 import React from 'react';
+import { Link } from 'react-router-dom'; // 引入 Link
 // 引入 ProductCard 組件
 import ProductCard from './ProductCard';
 // 引入商品內容資料
@@ -11,13 +13,7 @@ import productImages from '../data/product_images';
 // Props:
 // - products: 商品核心屬性物件的陣列
 // - title: 列表的標題 (例如 "熱門商品")
-// - navigateTo: 用於頁面導航的函式
-function ProductList({ products = [], listTitle = "商品列表", navigateTo }) { // 接收 navigateTo prop
-
-  // Trivial change to force update
-  const handleCardClick = (productId) => {
-    navigateTo('productDetail', productId); // 導航到商品詳細頁面，並傳入商品 ID
-  };
+function ProductList({ products = [], listTitle = "商品列表" }) { // 不再接收 navigateTo prop
 
   if (!products || products.length === 0) {
     return (
@@ -43,14 +39,17 @@ function ProductList({ products = [], listTitle = "商品列表", navigateTo }) 
 
             // 假設每個 product 物件都有一個唯一的 product_id
             return (
-              <ProductCard
-                key={product.product_id}
-                imageUrl={imageUrl} // 從 product_images 傳遞圖片 URL
-                title={content?.title || '無標題'}
-                description={content?.short_description || '無描述'}
-                price={product.price}
-                onCardClick={() => handleCardClick(product.product_id)} // 傳遞點擊事件處理函式
-              />
+              <div className="col" key={product.product_id}> {/* 將 Link 包裹在 col div 外 */}
+                <Link to={`/products/${product.product_id}`} style={{ textDecoration: 'none', color: 'inherit' }}> {/* 使用 Link 導向商品詳細頁面 */}
+                  <ProductCard
+                    imageUrl={imageUrl} // 從 product_images 傳遞圖片 URL
+                    title={content?.title || '無標題'}
+                    description={content?.short_description || '無描述'}
+                    price={product.price}
+                  // onCardClick 不再需要
+                  />
+                </Link>
+              </div>
             );
           })}
         </div>
