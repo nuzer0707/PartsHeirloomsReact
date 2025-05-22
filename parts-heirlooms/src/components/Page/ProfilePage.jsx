@@ -1,4 +1,10 @@
 import React, { useState } from 'react';
+import transactions from '../../data/transactions';
+import productTransactionDetails from '../../data/product_transaction_details';
+import products from '../../data/products';
+import transactionMethods from '../../data/transaction_methods';
+import productContent from '../../data/product_content';
+import users from '../../data/users';
 
 function ProfilePage() {
   const [activeTab, setActiveTab] = useState('account');
@@ -7,41 +13,6 @@ function ProfilePage() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
-  const [orders, setOrders] = useState([
-    {
-      id: 'ORD001',
-      productName: '復古機械鍵盤',
-      status: '配送中',
-      type: 'delivery',
-      deliveryProgress: '已出貨，預計明天送達',
-      returnable: true,
-    },
-    {
-      id: 'ORD002',
-      productName: '限量版公仔',
-      status: '待面交',
-      type: 'pickup',
-      pickupLocation: '台北車站',
-      pickupTime: '2025/06/01 14:00',
-      returnable: false,
-    },
-    {
-      id: 'ORD003',
-      productName: '藍芽耳機',
-      status: '已完成',
-      type: 'delivery',
-      deliveryProgress: '已簽收',
-      returnable: true,
-    },
-    {
-      id: 'ORD004',
-      productName: '設計師款手錶',
-      status: '退貨處理中',
-      type: 'delivery',
-      deliveryProgress: '退貨申請已提交，等待賣家確認',
-      returnable: false,
-    },
-  ]);
 
   const handleUsernameChange = () => {
     alert(`用戶名已更新為: ${username}`);
@@ -78,6 +49,49 @@ function ProfilePage() {
     alert(`已聯繫訂單 ${orderId} 的賣家。`);
     // 在這裡添加實際的 API 呼叫來聯繫賣家
   };
+
+  // Map transaction status to display text
+  const statusMap = {
+    'Completed': '已完成',
+    'Pending': '待處理',
+    'Shipped': '配送中',
+    'Cancelled': '已取消',
+    // Add other statuses as needed
+  };
+
+  // Map transaction method name to type
+  const methodTypeMap = {
+    '郵寄': 'delivery',
+    '面交': 'pickup',
+    // Add other methods as needed
+  };
+
+  // Assuming current user is the first user in the users data
+  const currentUserId = 2;
+
+  // Process data to create orders list
+  const userTransactions = transactions.filter(t => t.buyer_user_id === currentUserId);
+
+  const processedOrders = userTransactions.map(transaction => {
+    const product = products.find(p => p.product_id === transaction.product_id);
+    const productDetail = productContent.find(pc => pc.product_id === transaction.product_id);
+    const transactionDetail = productTransactionDetails.find(d => d.detail_id === transaction.chosen_transaction_detail_id);
+    const transactionMethod = transactionMethods.find(m => m.method_id === transactionDetail?.method_id);
+
+    const orderType = methodTypeMap[transactionMethod?.name] || 'unknown';
+    const statusText = statusMap[transaction.status] || transaction.status;
+
+    return {
+      id: transaction.transaction_id, // Use raw transaction_id
+      productName: productDetail?.title || '未知產品', // Use product title from product_content
+      status: statusText,
+      type: orderType,
+      deliveryProgress: orderType === 'delivery' ? `狀態: ${statusText}` : undefined, // Placeholder
+      pickupLocation: orderType === 'pickup' ? transactionDetail?.notes || '未提供面交地點' : undefined, // Use notes for pickup location
+      pickupTime: orderType === 'pickup' ? '請參考面交備註' : undefined, // Placeholder
+      returnable: orderType === 'delivery', // Hardcode returnable based on type
+    };
+  });
 
   return (
     <div className="container mt-5 pt-5">
@@ -188,11 +202,13 @@ function ProfilePage() {
                 <div>
                   <h3>訂單與退貨管理</h3>
                   <p>查詢所有訂單的狀態、歷史記錄，並提交或追蹤退貨申請。</p>
-                  {orders.length > 0 ? (
-                    <ul className="list-group">
-                      {orders.map((order) => (
-                        <li key={order.id} className="list-group-item mb-3">
-                          <h5>訂單號: {order.id} - {order.productName}</h5>
+                  {processedOrders.length > 0 ? (
+                    <ul className="list-group order-list">
+                      {processedOrders.map((order) => (
+                        <li key={order.id} className="list-group-item">
+
+                          <h5>{order.productName}</h5>
+                          <p>訂單號: {order.id}</p>
                           <p>狀態: {order.status}</p>
                           {order.type === 'delivery' && (
                             <p>配送進度: {order.deliveryProgress}</p>

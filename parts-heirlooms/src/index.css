@@ -169,3 +169,8 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* 確保訂單列表的第一個項目有上邊框 */
+.order-list .list-group-item:first-child {
+  border-top-width: 1px;
+}
