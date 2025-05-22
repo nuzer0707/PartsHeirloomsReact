@@ -52,34 +52,39 @@ function Navbar() { // 不再接收 navigateTo prop
           <ul className="navbar-nav ms-2 d-flex align-items-center"> {/* ms-2 增加左邊間距 */}
             {/* 購物車連結 */}
             <li className="nav-item">
-              <NavLink className="nav-link" to="/cart" aria-label="購物車"> {/* 使用 NavLink */}
-                <i className="bi bi-cart" style={{ fontSize: '1.2rem' }}></i>
+              <NavLink className="nav-link " to="/cart" aria-label="購物車" style={{ paddingBottom: 0, paddingTop: 0 }} > {/* 使用 NavLink */}
+                <i className="bi bi-cart" style={{ fontSize: '1.8rem' }}></i>
               </NavLink>
             </li>
             {/* 根據登入狀態顯示 */}
             {user ? (
-              <li className="nav-item ms-2"> {/* ms-2 增加左邊間距 */}
-                <div
-                  className="bg-success text-emphasis rounded-circle d-inline-flex align-items-center justify-content-center"
-                  style={{ width: '30px', height: '30px', cursor: 'pointer' }} // 設定圓形大小和游標樣式
-                  onClick={() => {
-                    logout(); // 呼叫 logout 函式
-                    // 登出後導向首頁，這裡可以使用 navigate 鉤子，但為了簡單起見，先不處理導向
-                  }}
-                  title={`登出 ${user.username}`} // 懸停提示
-                >
-                  <span className="fw-bold">{user.username.charAt(0).toUpperCase()}</span> {/* 顯示使用者名稱首字大寫 */}
-                </div>
+              <li className="nav-item"> {/* ms-2 增加左邊間距 */}
+                <NavLink className="nav-link" to="/login">
+                  <button
+                    className="btn  btn-warning "
+                    onClick={() => {
+                      logout(); // 呼叫 logout 函式
+                      // 登出後導向首頁，這裡可以使用 navigate 鉤子，但為了簡單起見，先不處理導向
+                    }}
+                    title={`登出 ${user.username}`} // 懸停提示
+                  >
+                    登出
+                  </button>
+                </NavLink>
               </li>
             ) : (
               <>
-                {/* 註冊連結 */}
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/register">註冊</NavLink> {/* 使用 NavLink */}
-                </li>
+                {/*註冊連結*/}
+
+
+                {/* <li className="nav-item">
+                  <NavLink className="nav-link" to="/register">註冊</NavLink> 使用 NavLink 
+                </li> */}
+
                 {/* 登入連結 */}
+
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/login">登入</NavLink> {/* 使用 NavLink */}
+                  <NavLink className="nav-link" to="/login"><button className="btn  btn-warning">登入</button></NavLink> {/* 使用 NavLink */}
                 </li>
               </>
             )}

@@ -2,13 +2,13 @@ const productImages = [
  {
     image_id: 1,
     product_id: 1, // GTX 1050 Ti
-    image_url: 'https://fakeimg.pl/350x200/?text=GTX+1050+Ti&font=noto',
+    image_url: 'https://fakeimg.pl/350x200/?text=GTX+1050Ti+1&font=noto',
     created_at: '2023-10-26T10:00:00Z',
   },
   {
     image_id: 2,
     product_id: 1, // GTX 1050 Ti
-    image_url: 'https://fakeimg.pl/350x200/?text=GTX+1050+Ti+Ports&font=noto',
+    image_url: 'https://fakeimg.pl/350x200/?text=GTX+1050Ti+2&font=noto',
     created_at: '2023-10-26T10:00:00Z',
   },
   {

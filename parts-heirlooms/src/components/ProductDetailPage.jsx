@@ -9,6 +9,7 @@ const ProductDetailPage = () => { // 不再接收 productId prop
   const [product, setProduct] = useState(null);
   const [content, setContent] = useState(null);
   const [images, setImages] = useState([]);
+  const [mainImage, setMainImage] = useState(''); // 新增 mainImage 狀態
 
   useEffect(() => {
     // 確保 productId 存在
@@ -27,6 +28,13 @@ const ProductDetailPage = () => { // 不再接收 productId prop
       // 尋找對應的商品圖片資料
       const foundImages = productImages.filter(item => item.product_id === numericProductId);
       setImages(foundImages);
+
+      // 設定主圖片為第一張圖片，如果存在的話
+      if (foundImages.length > 0) {
+        setMainImage(foundImages[0].image_url);
+      } else {
+        setMainImage("https://fakeimg.pl/600x400/cccccc/909090?text=No+Image");
+      }
     }
 
   }, [productId]); // 依賴於從 URL 獲取的 productId
@@ -41,11 +49,33 @@ const ProductDetailPage = () => { // 不再接收 productId prop
     <div className="container mt-5 pt-5"> {/* Added pt-5 for spacing below navbar */}
       <div className="row">
         <div className="col-md-6">
-          {images.length > 0 ? (
-            <img src={images[0].image_url} className="img-fluid" alt={content.title} />
-          ) : (
-            <img src="https://fakeimg.pl/600x400/cccccc/909090?text=No+Image" className="img-fluid" alt="無圖片" />
-          )}
+          {/* 主圖片顯示 */}
+          <img src={mainImage} className="img-fluid mb-3 rounded shadow-sm" alt={content.title} style={{ maxHeight: '500px', width: '100%', objectFit: 'contain' }} />
+          {/* 縮略圖列表 */}
+          <div className="row g-2 justify-content-center"> {/* g-2 for small gutter, justify-content-center to center thumbnails */}
+            {images.map((img, index) => (
+              <div className="col-3 col-md-3 col-lg-3 col-xl-3" key={index}> {/* 響應式調整，在所有尺寸下每行顯示4個縮略圖 */}
+                <img
+                  src={img.image_url}
+                  className={`img-fluid rounded thumbnail-image ${img.image_url === mainImage ? 'border border-primary border-3' : 'border border-light'}`}
+                  alt={`Thumbnail ${index + 1}`}
+                  onClick={() => setMainImage(img.image_url)}
+                  style={{ cursor: 'pointer', width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+            ))}
+            {/* 如果圖片少於4張，可以添加一些佔位符或調整佈局 */}
+            {images.length < 4 && Array.from({ length: 4 - images.length }).map((_, index) => (
+              <div className="col-3 col-md-3 col-lg-3 col-xl-3" key={`placeholder-${index}`}>
+                <img
+                  src="https://fakeimg.pl/150x100/eeeeee/cccccc?text=No+Image"
+                  className="img-fluid rounded thumbnail-image"
+                  alt="Placeholder"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.5 }}
+                />
+              </div>
+            ))}
+          </div>
         </div>
         <div className="col-md-6">
           <h1>{content.title}</h1>

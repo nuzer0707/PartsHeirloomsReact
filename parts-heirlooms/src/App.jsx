@@ -39,7 +39,9 @@ function App() {
               </>
             } />
             <Route path="/products" element={<ProductsPage products={products} />} />
-            <Route path="/products/:productId" element={<ProductDetailPage />} />
+            <Route path="/products" element={<ProductDetailPage />} >
+              <Route path=":productId" element={<ProductDetailPage />} />
+            </Route>
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/profile" element={<ProfilePage />} />

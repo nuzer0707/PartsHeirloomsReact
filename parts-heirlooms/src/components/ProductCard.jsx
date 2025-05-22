@@ -9,11 +9,11 @@ import React from 'react';
 // - description: 商品描述
 // - price: 商品價格
 // - onCardClick: 點擊卡片時觸發的函式，接收商品 ID 作為參數
-function ProductCard({ imageUrl, title, description, price, onCardClick }) { // 修改 props，移除 productId，加入 onCardClick
+function ProductCard({ imageUrl, title, description, price }) { // 修改 props，移除 productId，
   return (
     <div className="col">
       {/* 將點擊事件綁定到整個卡片容器 */}
-      <div className="card shadow-sm h-100" onClick={onCardClick} style={{ cursor: 'pointer' }}> {/* 新增 onClick 事件和 cursor 樣式 */}
+      <div className="card shadow-sm h-100" style={{ cursor: 'pointer' }}> {/* 新增 onClick 事件和 cursor 樣式 */}
         {/* 新增圖片容器以控制長寬比 */}
         <div className="product-card-image-container">
           <img
@@ -30,7 +30,7 @@ function ProductCard({ imageUrl, title, description, price, onCardClick }) { // 
             <div className="btn-group">
               {/* 您可以在這裡添加按鈕，例如加入購物車 */}
             </div>
-            <small className="text-body-secondary">{price ? `NT$ ${price.toLocaleString()}` : "價格待議"}</small>
+            <h4 className="text-danger">{price ? `NT$ ${price.toLocaleString()}` : "價格待議"}</h4>
           </div>
         </div>
       </div>
