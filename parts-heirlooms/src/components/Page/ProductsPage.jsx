@@ -41,9 +41,8 @@ function ProductsPage() { // 不再接收 products prop，改從 Context 獲取
       {selectedCategory ? (
         // 如果選擇了特定分類，則顯示該分類的商品
         <ProductList
-          products={products.filter(product => product.category_id === selectedCategory)}
+          selectedCategory={selectedCategory}
           listTitle={categories.find(c => c.category_id === selectedCategory)?.name || "商品列表"}
-        // navigateTo 不再需要傳遞
         />
       ) : (
         // 如果選擇了 "所有分類"，則遍歷所有分類並分別顯示
@@ -53,9 +52,8 @@ function ProductsPage() { // 不再接收 products prop，改從 Context 獲取
             return (
               <ProductList
                 key={category.category_id}
-                products={productsInCategory}
+                selectedCategory={category.category_id}
                 listTitle={category.name}
-              // navigateTo 不再需要傳遞
               />
             );
           }

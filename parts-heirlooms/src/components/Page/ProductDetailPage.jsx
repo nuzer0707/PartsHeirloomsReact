@@ -47,8 +47,8 @@ const ProductDetailPage = () => { // 不再接收 productId prop
 
   // 這裡將是商品詳細頁面的 UI
   return (
-    <div className="container mt-5 p-5 bg-body-tertiary"> {/* Added pt-5 for spacing below navbar */}
-      <div className="row">
+    <div className="container mt-5 p-5 "> {/* Added pt-5 for spacing below navbar */}
+      <div className="row ">
         <div className="col-md-6">
           {/* 主圖片顯示 */}
           <img src={mainImage} className="img-fluid mb-3 rounded shadow-sm" alt={content.title} style={{ maxHeight: '500px', width: '100%', objectFit: 'contain' }} />
@@ -89,8 +89,18 @@ const ProductDetailPage = () => { // 不再接收 productId prop
             <i className="bi bi-cart-plus"></i> 加入購物車
           </button>
         </div>
-        <div className="container mt-5 pt-5">
-          <h3>{content.full_description}</h3>
+      </div>
+      <div className=" mt-5 " >
+        <div className="card cart-card">
+
+          <div className='card-header py-3'>
+            <h3 className="mb-0">商品描述</h3>
+          </div>
+          <div className='card-body  py-3'>
+            {content.full_description.split('\n').map((paragraph, index) => (
+              <p key={index} >{paragraph}</p>
+            ))}
+          </div>
         </div>
       </div>
       {/* 您可以在這裡添加更多區塊，例如商品規格、評價等 */}

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 // Hero Section 組件
 function HeroSection() {
   return (
-    <section className="py-5 text-center container">
+    <section className="py-5 text-center  bg-body-tertiary">
       <div className="row py-lg-5">
         <div className="col-lg-6 col-md-8 mx-auto">
           <h1 className="fw-light">零件傳承坊</h1>

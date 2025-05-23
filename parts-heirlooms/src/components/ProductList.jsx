@@ -9,11 +9,16 @@ import { DataContext } from '../contexts/DataContext';
 // 商品列表組件
 // Props:
 // - listTitle: 列表的標題 (例如 "熱門商品")
-function ProductList({ listTitle = "商品列表" }) { // 不再接收 products prop
+function ProductList({ listTitle = "商品列表", selectedCategory }) {
   // 從 DataContext 中獲取 products, productContent, productImages
   const { products, productContent, productImages } = useContext(DataContext);
 
-  if (!products || products.length === 0) {
+  // 根據 selectedCategory 過濾商品
+  const filteredProducts = selectedCategory
+    ? products.filter(product => product.category_id === selectedCategory)
+    : products;
+
+  if (!filteredProducts || filteredProducts.length === 0) {
     return (
       <div className="album py-5 bg-body-tertiary">
         <div className="container">
@@ -25,11 +30,11 @@ function ProductList({ listTitle = "商品列表" }) { // 不再接收 products 
   }
 
   return (
-    <div className="album py-5 bg-body-tertiary">
+    <div className="album py-5 ">
       <div className="container">
         <h2 className="pb-2 border-bottom mb-4">{listTitle}</h2>
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3"> {/* xs,sm:1張; md:2張; lg+:3張 */}
-          {products.map((product) => {
+          {filteredProducts.map((product) => {
             const content = productContent.find(item => item.product_id === product.product_id);
             // 找到對應商品的圖片，取第一張
             const images = productImages.filter(image => image.product_id === product.product_id);
