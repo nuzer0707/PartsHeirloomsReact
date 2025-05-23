@@ -5,6 +5,7 @@ import productTransactionDetails from '../data/product_transaction_details';
 import products from '../data/products';
 import transactionMethods from '../data/transaction_methods';
 import productContent from '../data/product_content';
+import productImages from '../data/product_images';
 import users from '../data/users';
 
 // 創建一個新的 Context，用於在組件樹中共享資料
@@ -19,6 +20,7 @@ export const DataProvider = ({ children }) => {
     products,
     transactionMethods,
     productContent,
+    productImages,
     users,
   };
 

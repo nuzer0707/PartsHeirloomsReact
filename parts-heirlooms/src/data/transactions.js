@@ -1,4 +1,5 @@
 import productTransactionDetails from './product_transaction_details';
+import transactionMethods from './transaction_methods';
 
 const transactions = [
   
@@ -8,9 +9,9 @@ const transactions = [
     product_id: 1,
     seller_user_id: 1,
     buyer_user_id: 2,
-    chosen_transaction_detail_id: productTransactionDetails[0].detail_id,
+    chosen_transaction_detail_id: productTransactionDetails[1].detail_id,
     final_price: 2500,
-    status: 'Pending',//ENUM('Pending Payment', 'Paid', 'Processing', 'Shipped', 'Completed', 'Cancelled')
+    status: 'Pending Payment',//ENUM('Pending Payment', 'Paid', 'Processing', 'Shipped', 'Completed', 'Cancelled')
     shipped_at: '2023-10-27T11:15:00Z',
     created_at: '2023-10-26T11:15:00Z',
   },
@@ -23,7 +24,7 @@ const transactions = [
     buyer_user_id: 2,
     chosen_transaction_detail_id: productTransactionDetails[2].detail_id,
     final_price: 1200,
-    status: 'Pending',
+    status: 'Pending Payment',
     shipped_at: '2023-10-27T11:15:00Z',
     created_at: '2023-10-26T11:15:00Z',
   },
@@ -35,7 +36,7 @@ const transactions = [
     chosen_transaction_detail_id: productTransactionDetails[3].detail_id,
     final_price: 5000,
     status: 'Processing',
-    shipped_at: '2023-10-27T11:15:00Z',
+    shipped_at: null,
     created_at: '2023-10-26T11:15:00Z',
   },
   {
@@ -57,7 +58,7 @@ const transactions = [
     chosen_transaction_detail_id: productTransactionDetails[5].detail_id,
     final_price: 800,
     status: 'Cancelled',
-    shipped_at: '2023-10-27T11:15:00Z',
+    shipped_at: null,
     created_at: '2023-10-26T11:15:00Z',
   },
 ];

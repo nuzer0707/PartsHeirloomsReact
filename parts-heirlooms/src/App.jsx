@@ -39,8 +39,6 @@ function App() {
               <Route path="/" element={
                 <>
                   <HeroSection />
-                  :start_line:42
-                  -------
                   <ProductList listTitle="最多人觀看" /> {/* products 改從 Context 獲取 */}
                 </>
               } />

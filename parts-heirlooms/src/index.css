@@ -39,8 +39,8 @@ body {
   /* 在 body 也明確設定 */
   margin: 0;
   min-width: 320px;
-  /* display: flex; 和 place-items: center; 已移除 */
-  /* min-height: 100vh; 已移除 */
+  overflow-y: scroll;
+  /* 強制顯示垂直滾動軸，避免畫面位移 */
 }
 
 /* 新增 #root 的樣式 */

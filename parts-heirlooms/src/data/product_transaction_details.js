@@ -33,7 +33,7 @@ const productTransactionDetails = [
   {
     detail_id: 4,
     product_id: 3,
-    method_id: 3,
+    method_id: 2,
     general_notes: '可約定時間地點自取',
     meetup_latitude: 25.0500,
     meetup_longitude: 121.5500,
