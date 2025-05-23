@@ -1,57 +1,61 @@
 const productTransactionDetails = [
+  
+  //資料格式
   {
     detail_id: 1,
     product_id: 1,
     method_id: 1,
-    notes: '郵寄費用另計',
+    meetup_time: null,
+    general_notes: '郵寄費用另計',
     meetup_latitude: null,
     meetup_longitude: null,
-    created_at: '2023-10-26T11:20:00Z',
   },
+  //資料格式
+  
   {
     detail_id: 2,
     product_id: 1,
     method_id: 2,
-    notes: '平日晚上七點後，捷運忠孝新生站面交',
+    general_notes: '10-26晚上七點，捷運忠孝新生站面交',
     meetup_latitude: 25.0425,
     meetup_longitude: 121.5355,
-    created_at: '2023-10-26T11:25:00Z',
+    meetup_time: '2023-10-26T19:00:00Z',
   },
   {
     detail_id: 3,
     product_id: 2,
     method_id: 1,
-    notes: '運費依地區計算',
+    general_notes: '運費依地區計算',
     meetup_latitude: null,
     meetup_longitude: null,
-    created_at: '2023-10-26T11:30:00Z',
+    meetup_time: null,
   },
   {
     detail_id: 4,
     product_id: 3,
     method_id: 3,
-    notes: '可約定時間地點自取',
+    general_notes: '可約定時間地點自取',
     meetup_latitude: 25.0500,
     meetup_longitude: 121.5500,
-    created_at: '2023-10-26T11:35:00Z',
+    meetup_time: '2023-10-26T11:35:00Z',
   },
   {
     detail_id: 5,
     product_id: 4,
     method_id: 1,
-    notes: '黑貓宅急便寄送',
+    general_notes: '黑貓宅急便寄送',
     meetup_latitude: null,
     meetup_longitude: null,
-    created_at: '2023-10-26T11:40:00Z',
+    meetup_time: null,
   },
   {
     detail_id: 6,
     product_id: 5,
     method_id: 2,
-    notes: '假日白天，捷運公館站面交',
+    general_notes: '假日白天，捷運公館站面交',
     meetup_latitude: 25.0065,
     meetup_longitude: 121.5350,
-    created_at: '2023-10-26T11:45:00Z',
+    meetup_time: '2023-10-26T11:45:00Z',
   },
 ];
 

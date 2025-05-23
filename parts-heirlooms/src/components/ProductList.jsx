@@ -1,19 +1,17 @@
 // 引入 React
-// 引入 React
-import React from 'react';
+import React, { useContext } from 'react'; // 引入 useContext
 import { Link } from 'react-router-dom'; // 引入 Link
 // 引入 ProductCard 組件
 import ProductCard from './Page/ProductCard';
-// 引入商品內容資料
-import productContent from '../data/product_content';
-// 引入商品圖片資料
-import productImages from '../data/product_images';
+// 引入 DataContext，用於獲取共用資料
+import { DataContext } from '../contexts/DataContext';
 
 // 商品列表組件
 // Props:
-// - products: 商品核心屬性物件的陣列
-// - title: 列表的標題 (例如 "熱門商品")
-function ProductList({ products = [], listTitle = "商品列表" }) { // 不再接收 navigateTo prop
+// - listTitle: 列表的標題 (例如 "熱門商品")
+function ProductList({ listTitle = "商品列表" }) { // 不再接收 products prop
+  // 從 DataContext 中獲取 products, productContent, productImages
+  const { products, productContent, productImages } = useContext(DataContext);
 
   if (!products || products.length === 0) {
     return (

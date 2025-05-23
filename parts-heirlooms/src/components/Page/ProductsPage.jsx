@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ProductList from '../ProductList'; // 可以重用 ProductList
 import categories from '../../data/categories'; // 引入分類資料
+import { DataContext } from '../../contexts/DataContext'; // 引入 DataContext，用於獲取共用資料
 
-function ProductsPage({ products }) { // 不再接收 navigateTo prop
+function ProductsPage() { // 不再接收 products prop，改從 Context 獲取
+  // 從 DataContext 中獲取 products 資料
+  const { products } = useContext(DataContext);
   const [selectedCategory, setSelectedCategory] = useState(''); // 預設不選擇任何分類
 
   const handleCategoryChange = (categoryId) => {

@@ -1,6 +1,8 @@
 import productTransactionDetails from './product_transaction_details';
 
 const transactions = [
+  
+  //資料格式
   {
     transaction_id: 1,
     product_id: 1,
@@ -8,28 +10,33 @@ const transactions = [
     buyer_user_id: 2,
     chosen_transaction_detail_id: productTransactionDetails[0].detail_id,
     final_price: 2500,
-    status: 'Completed',
-    created_at: productTransactionDetails[0].created_at,
+    status: 'Pending',//ENUM('Pending Payment', 'Paid', 'Processing', 'Shipped', 'Completed', 'Cancelled')
+    shipped_at: '2023-10-27T11:15:00Z',
+    created_at: '2023-10-26T11:15:00Z',
   },
+  //資料格式
+
   {
     transaction_id: 2,
     product_id: 2,
-    seller_user_id: 3,
-    buyer_user_id: 1,
+    seller_user_id: 1,
+    buyer_user_id: 2,
     chosen_transaction_detail_id: productTransactionDetails[2].detail_id,
     final_price: 1200,
     status: 'Pending',
-    created_at: productTransactionDetails[2].created_at,
+    shipped_at: '2023-10-27T11:15:00Z',
+    created_at: '2023-10-26T11:15:00Z',
   },
   {
     transaction_id: 3,
     product_id: 3,
-    seller_user_id: 4,
+    seller_user_id: 1,
     buyer_user_id: 2,
     chosen_transaction_detail_id: productTransactionDetails[3].detail_id,
     final_price: 5000,
-    status: 'Completed',
-    created_at: productTransactionDetails[3].created_at,
+    status: 'Processing',
+    shipped_at: '2023-10-27T11:15:00Z',
+    created_at: '2023-10-26T11:15:00Z',
   },
   {
     transaction_id: 4,
@@ -38,19 +45,23 @@ const transactions = [
     buyer_user_id: 2,
     chosen_transaction_detail_id: productTransactionDetails[4].detail_id,
     final_price: 300,
-    status: 'Cancelled',
-    created_at: productTransactionDetails[4].created_at,
+    status: 'Completed',
+    shipped_at: '2023-10-27T11:15:00Z',
+    created_at: '2023-10-26T11:15:00Z',
   },
   {
-    transaction_id: 5,
+    transaction_id: 5,  
     product_id: 5,
-    seller_user_id: 2,
-    buyer_user_id: 4,
+    seller_user_id: 1,
+    buyer_user_id: 2,
     chosen_transaction_detail_id: productTransactionDetails[5].detail_id,
     final_price: 800,
-    status: 'Completed',
-    created_at: productTransactionDetails[5].created_at,
+    status: 'Cancelled',
+    shipped_at: '2023-10-27T11:15:00Z',
+    created_at: '2023-10-26T11:15:00Z',
   },
 ];
 
 export default transactions;
+
+

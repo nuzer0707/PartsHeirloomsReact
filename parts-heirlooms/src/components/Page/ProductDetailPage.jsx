@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react'; // 引入 useContext
 import { useParams } from 'react-router-dom'; // 引入 useParams
-import products from '../../data/products'; // 引入商品核心資料
-import productContent from '../../data/product_content'; // 引入商品內容資料
-import productImages from '../../data/product_images'; // 引入商品圖片資料
+import { DataContext } from '../../contexts/DataContext'; // 引入 DataContext，用於獲取共用資料
 
 const ProductDetailPage = () => { // 不再接收 productId prop
   const { productId } = useParams(); // 使用 useParams 獲取商品 ID
@@ -10,6 +8,9 @@ const ProductDetailPage = () => { // 不再接收 productId prop
   const [content, setContent] = useState(null);
   const [images, setImages] = useState([]);
   const [mainImage, setMainImage] = useState(''); // 新增 mainImage 狀態
+
+  // 從 DataContext 中獲取共用資料
+  const { products, productContent, productImages } = useContext(DataContext);
 
   useEffect(() => {
     // 確保 productId 存在
@@ -37,7 +38,7 @@ const ProductDetailPage = () => { // 不再接收 productId prop
       }
     }
 
-  }, [productId]); // 依賴於從 URL 獲取的 productId
+  }, [productId, products, productContent, productImages]); // 依賴於從 URL 獲取的 productId 和 Context 資料
 
   if (!productId || !product || !content) {
     // 如果沒有 productId 或者找不到商品，顯示載入中或找不到商品

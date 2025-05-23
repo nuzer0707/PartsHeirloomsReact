@@ -1,10 +1,5 @@
-import React, { useState } from 'react';
-import transactions from '../../data/transactions';
-import productTransactionDetails from '../../data/product_transaction_details';
-import products from '../../data/products';
-import transactionMethods from '../../data/transaction_methods';
-import productContent from '../../data/product_content';
-import users from '../../data/users';
+import React, { useState, useContext } from 'react';
+import { DataContext } from '../../contexts/DataContext'; // 引入 DataContext，用於獲取共用資料
 
 function ProfilePage() {
   const [activeTab, setActiveTab] = useState('account');
@@ -52,25 +47,31 @@ function ProfilePage() {
 
   // Map transaction status to display text
   const statusMap = {
-    'Completed': '已完成',
-    'Pending': '待處理',
+    'Pending Payment': '待付款',
+    'Paid': '已付款',
+    'Processing': '處理中',
     'Shipped': '配送中',
+    'Completed': '已完成',
     'Cancelled': '已取消',
-    // Add other statuses as needed
   };
 
   // Map transaction method name to type
   const methodTypeMap = {
     '郵寄': 'delivery',
     '面交': 'pickup',
-    // Add other methods as needed
+    '自取': 'pickup', // 新增自取
   };
 
   // Assuming current user is the first user in the users data
-  const currentUserId = 2;
+  const currentUserId = 2; // 假設這是當前用戶 ID
 
-  // Process data to create orders list
-  const userTransactions = transactions.filter(t => t.buyer_user_id === currentUserId);
+  // 從 DataContext 中獲取共用資料
+  const { transactions, productTransactionDetails, products, transactionMethods, productContent, users } = useContext(DataContext);
+
+  // Process data to create orders list (只顯示未完成的訂單)
+  const userTransactions = transactions.filter(t =>
+    t.buyer_user_id === currentUserId && t.status !== 'Completed' && t.status !== 'Cancelled'
+  );
 
   const processedOrders = userTransactions.map(transaction => {
     const product = products.find(p => p.product_id === transaction.product_id);
@@ -82,14 +83,14 @@ function ProfilePage() {
     const statusText = statusMap[transaction.status] || transaction.status;
 
     return {
-      id: transaction.transaction_id, // Use raw transaction_id
-      productName: productDetail?.title || '未知產品', // Use product title from product_content
+      id: transaction.transaction_id,
+      productName: productDetail?.title || '未知產品',
       status: statusText,
       type: orderType,
-      deliveryProgress: orderType === 'delivery' ? `狀態: ${statusText}` : undefined, // Placeholder
-      pickupLocation: orderType === 'pickup' ? transactionDetail?.notes || '未提供面交地點' : undefined, // Use notes for pickup location
-      pickupTime: orderType === 'pickup' ? '請參考面交備註' : undefined, // Placeholder
-      returnable: orderType === 'delivery', // Hardcode returnable based on type
+      deliveryProgress: orderType === 'delivery' ? `狀態: ${statusText}` : undefined,
+      pickupLocation: orderType === 'pickup' ? transactionDetail?.general_notes || '未提供面交地點' : undefined,
+      pickupTime: orderType === 'pickup' ? transactionDetail?.meetup_time ? new Date(transactionDetail.meetup_time).toLocaleString() : '未提供面交時間' : undefined,
+      returnable: orderType === 'delivery' && transaction.status !== 'Completed' && transaction.status !== 'Cancelled', // 只有配送中的訂單且未完成/取消才可退貨
     };
   });
 
